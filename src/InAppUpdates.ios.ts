@@ -9,7 +9,6 @@ import type {
   IosStartUpdateOptions,
   IosNeedsUpdateResponse,
 } from './types';
-import { getVersion } from 'react-native-device-info';
 
 const noop = () => {};
 
@@ -17,17 +16,17 @@ export default class InAppUpdates extends InAppUpdatesBase {
   public checkNeedsUpdate(
     checkOptions?: CheckOptions
   ): Promise<IosNeedsUpdateResponse> {
-    const { curVersion, toSemverConverter, customVersionComparator, country } =
+    const { curVersion, toSemverConverter, customVersionComparator, country, bundleId } =
       checkOptions || {};
 
     let appVersion: string;
-    if (curVersion) {
+    if (curVersion && bundleId) {
       appVersion = curVersion;
     } else {
-      appVersion = getVersion();
+      this.throwError('curVersion and bundleId is not optional!', 'checkNeedsUpdate');
     }
     this.debugLog('Checking store version (iOS)');
-    return Siren.performCheck({ country })
+    return Siren.performCheck({ country, bundleId, currentVersion: curVersion })
       .then((checkResponse: IosPerformCheckResponse) => {
         this.debugLog(
           `Received response from app store: ${JSON.stringify(checkResponse)}`

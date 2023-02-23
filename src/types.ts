@@ -47,6 +47,8 @@ export type CheckOptions = {
    * ISO 3166-1 country code (iOS only)
    */
   country?: string;
+
+  bundleId?: string;
 };
 
 export type SemverVersion = string;
