@@ -45,7 +45,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "react-native-siren": "github:zeptonow/react-native-siren#master",
+    "react-native-siren": "github:zeptonow/react-native-siren#v1.0.0",
     "semver": "7.2.1",
     "underscore": "1.12.1"
   },
